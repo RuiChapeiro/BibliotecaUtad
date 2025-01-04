@@ -1,0 +1,89 @@
+﻿@model IEnumerable<BibliotecaUtad.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Editor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AquisitionDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.N_Copies)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CoverImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Summary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LaunchDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subgender)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Editor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AquisitionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.N_Copies)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CoverImage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Summary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LaunchDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender.GenderName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subgender.SubGenderName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ISBN">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ISBN">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ISBN">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
