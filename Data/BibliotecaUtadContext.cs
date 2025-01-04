@@ -13,6 +13,7 @@ namespace BibliotecaUtad.Data
         public DbSet<Book> Book { get; set; } = default!;
         public DbSet<Gender> Gender { get; set; } = default!;
         public DbSet<Subgender> Subgender { get; set; } = default!;
+        public DbSet<Librabry> Library { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,5 +29,6 @@ namespace BibliotecaUtad.Data
                 .HasForeignKey(b => b.SubGenderId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
+        public DbSet<BibliotecaUtad.Models.Librabry> Librabry { get; set; } = default!;
     }
 }

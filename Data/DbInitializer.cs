@@ -22,6 +22,26 @@ namespace BibliotecaUtad.Data
             using (var context = new BibliotecaUtadContext(
                 serviceProvider.GetRequiredService<DbContextOptions<BibliotecaUtadContext>>()))
             {
+                if (context.Librabry.Any())
+                {
+                    return;   // A base de dados já tem dados
+                }
+
+                var libraryInfo = new Librabry[]
+                {
+                    new Librabry { Name = "Biblioteca da UTAD",
+                                   LocAddress = " Quinta de Prados",
+                                   LocPostalCode = "5000-801",
+                                   LocCity = "Vila Real",
+                                   LocCountry = "Portugal",
+                                   Email = "biblioteca@utad.pt",
+                                   Phone = "+351 259 350 000",
+                                   OpeningHours = "Segunda a Sexta: 9h00 - 19h00" } 
+                };
+
+                context.Librabry.AddRange(libraryInfo);
+                context.SaveChanges();
+
                 // Verifica se a tabela de gêneros já tem dados
                 if (context.Gender.Any())
                 {

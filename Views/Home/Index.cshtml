@@ -6,7 +6,7 @@
 <div class="row" style="margin-top: 50px; margin-left: 430px">
     @foreach (var book in Model)
     {
-        <img src="~/images/covers/@book.CoverImage" style="width: 150px; height: 212px; margin-right: 30px;" />
+        <img src="~/images/covers/@book.CoverImage" style="width: 150px; height: 212px; object-fit: cover; margin-right: 30px; border: 1px solid black;" />
     }
 </div>
 <div class="row" style="margin: 8px 0 0 430px">
