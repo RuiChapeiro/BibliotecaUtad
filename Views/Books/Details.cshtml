@@ -1,26 +1,18 @@
 ﻿@model BibliotecaUtad.Models.Book
 
-@{
-    ViewData["Title"] = "Details";
-}
-
-// Remover isto dps
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-<div style="display: flex; align-items: flex-start;">
-    <div style="margin: 50px 50px 0px 300px;">
+<div style="display: flex; align-items: flex-start; margin: 50px 0 0 0">
+    <button onclick="history.back()" style="margin-left: 50px; padding: 5px 20px; font-size: 15px; font-family: 'Segoe UI'; background-color: #de0d1d; color: white; font-weight: bold; border-radius: 10px; width: 100px; height: 40px; border: 1px solid black;">Voltar</button>
+    <div style="margin-left: 300px; margin-right: 50px;">
         <img src="~/images/covers/@Model.CoverImage" style="width: 420px; height: 595px; object-fit: cover; border: 1px solid black;" />
     </div>
-    <dl style="margin: 50px 300px 0 0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <dl style="margin-right: 300px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
         <dd class="col-sm-10" style="font-size: 35px; font-weight: bold;">
             @Html.DisplayFor(model => model.Title)
         </dd>
         <dd class = "col-sm-10" style="font-size: 30px;">
             de @Html.DisplayFor(model => model.Author)
         </dd>
-        <hr style="width: 800; border: 1px solid black;" />
+        <hr style="width: 700; border: 1px solid black;" />
         <dt class = "col-sm-2">
             Editora
         </dt>

@@ -40,6 +40,14 @@ namespace BibliotecaUtad.Controllers
             return View();
         }
 
+        public async Task<IActionResult> ViewAllBooks()
+        {
+            var allBooks = await _context.Book
+                .OrderByDescending(b => b.AquisitionDate)
+                .ToListAsync();
+            return View(allBooks);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
