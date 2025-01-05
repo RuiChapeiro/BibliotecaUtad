@@ -6,9 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BibliotecaUtad.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -19,7 +21,7 @@ namespace BibliotecaUtad.Controllers
             _logger = logger;
             _context = context;
         }
-
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var recentBooks = await _context.Book
@@ -29,12 +31,12 @@ namespace BibliotecaUtad.Controllers
 
             return View(recentBooks);
         }
-
+        [AllowAnonymous]
         public IActionResult Privacy()
         {
             return View();
         }
-
+        [AllowAnonymous]
         public IActionResult AboutUs()
         {
             return View();

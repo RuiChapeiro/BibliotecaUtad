@@ -9,7 +9,6 @@ namespace BibliotecaUtad.Data
             : base(options)
         {
         }
-
         public DbSet<Book> Book { get; set; } = default!;
         public DbSet<Gender> Gender { get; set; } = default!;
         public DbSet<Subgender> Subgender { get; set; } = default!;
