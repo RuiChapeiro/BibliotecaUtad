@@ -11,10 +11,11 @@
         <div class="col-md-4" style="width: 470px;">
             <div id="imagePreview" style="width: 420px; height: 595px; border: 1px solid #cccccc; background-image: url('/images/covers/@Model.CoverImage'); background-size: cover; background-position: center center;"></div>
             <div class="form-group">
-                <label asp-for="CoverImage" class="control-label"></label>
-                <input asp-for="CoverImage" class="form-control" />
+                <label asp-for="CoverImage" class="control-label" style="display: none;"></label>
+                <input type="hidden" asp-for="CoverImage" />
                 <span asp-validation-for="CoverImage" class="text-danger"></span>
             </div>
+
         </div>
         <div class="col-md-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
