@@ -63,7 +63,7 @@ namespace BibliotecaUtad.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ISBN,Title,Author,Editor,N_Copies,CoverImage,Summary,LaunchDate,GenderId,SubGenderId")] BookViewModel book)
         {
-            //Verifica as extensões permitidas
+            // Verifica as extensões permitidas
             var CoverExtensions = new string[] { ".jpg", ".jpeg", ".png" };
 
             var extension = Path.GetExtension(book.CoverImage.FileName).ToLower();
@@ -72,10 +72,9 @@ namespace BibliotecaUtad.Controllers
                 ModelState.AddModelError("CoverImage", "A imagem de capa deve ser um arquivo .jpg, .jpeg ou .png.");
             }
 
-
             if (ModelState.IsValid)
             {
-                var newBook = new Book(); //Criar um novo livro e popular com os dados selecionados
+                var newBook = new Book(); // Criar um novo livro e popular com os dados selecionados
                 newBook.ISBN = book.ISBN;
                 newBook.Title = book.Title;
                 newBook.Author = book.Author;
@@ -129,7 +128,7 @@ namespace BibliotecaUtad.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("ISBN,Title,Author,Editor,N_Copies,CoverImage,Summary,LaunchDate,GenderId,SubGenderId")] Book book)
+        public async Task<IActionResult> Edit(string id, [Bind("ISBN,Title,Author,Editor,N_Copies,CoverImage,Summary,LaunchDate,GenderId,SubGenderId")] BookViewModel book)
         {
             if (id != book.ISBN)
             {
@@ -140,7 +139,39 @@ namespace BibliotecaUtad.Controllers
             {
                 try
                 {
-                    _context.Update(book);
+                    var existingBook = await _context.Book.FindAsync(id);
+                    if (existingBook == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Atualizar os campos do livro
+                    existingBook.Title = book.Title;
+                    existingBook.Author = book.Author;
+                    existingBook.Editor = book.Editor;
+                    existingBook.N_Copies = book.N_Copies;
+                    existingBook.Summary = book.Summary;
+                    existingBook.LaunchDate = book.LaunchDate;
+                    existingBook.GenderId = book.GenderId;
+                    existingBook.SubGenderId = book.SubGenderId;
+
+                    // Verificar se uma nova imagem foi enviada
+                    if (book.CoverImage != null && book.CoverImage.Length > 0)
+                    {
+                        var extension = Path.GetExtension(book.CoverImage.FileName).ToLower();
+                        var coverFileName = book.ISBN + extension;
+                        var coverPath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "covers", coverFileName);
+
+                        using (var fileStream = new FileStream(coverPath, FileMode.Create))
+                        {
+                            await book.CoverImage.CopyToAsync(fileStream);
+                        }
+
+                        // Atualizar o nome da imagem na base de dados
+                        existingBook.CoverImage = coverFileName;
+                    }
+
+                    _context.Update(existingBook);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
