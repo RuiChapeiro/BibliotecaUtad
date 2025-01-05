@@ -1,89 +1,83 @@
 ﻿@model IEnumerable<BibliotecaUtad.Models.Book>
 
-@{
-    ViewData["Title"] = "Index";
-}
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Editor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AquisitionDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.N_Copies)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CoverImage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Summary)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LaunchDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Subgender)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Editor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AquisitionDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.N_Copies)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CoverImage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Summary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LaunchDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender.GenderName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subgender.SubGenderName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ISBN">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ISBN">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ISBN">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div style="margin: 20px;">
+    <h1 style="display: inline-block;">Livros</h1>
+    <div class="form-group" style="margin-top: 0px;">
+        <a asp-action="Create" class="btn btn-primary" style="padding: 5px 5px; font-size: 15px; font-family: 'Segoe UI'; background-color: #001733; color: white; font-weight: bold; border-radius: 10px; width: 80px; height: 20px; border: 1px solid black; display: flex; justify-content: center; align-items: center;">Novo</a>
+    </div>
+    <table class="table" style="margin-top: 20px;">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("Capa")
+                </th>
+                <th>
+                    @Html.DisplayName("Título")
+                </th>
+                <th>
+                    @Html.DisplayName("Autor")
+                </th>
+                <th>
+                    @Html.DisplayName("Editora")
+                </th>
+                <th>
+                    @Html.DisplayName("Lançamento")
+                </th>
+                <th>
+                    @Html.DisplayName("Género")
+                </th>
+                <th>
+                    @Html.DisplayName("Sínopse")
+                </th>
+                <th>
+                    @Html.DisplayName("Aquisição")
+                </th>
+                <th>
+                    @Html.DisplayName("Qtd")
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td style="vertical-align: middle;">
+                    <a asp-action="Details" asp-route-id="@item.ISBN">
+                        <img src="~/images/covers/@item.CoverImage" alt="Cover Image" height="140" width="100" />
+                    </a>
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Editor)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.LaunchDate)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Gender.GenderName) - @Html.DisplayFor(modelItem => item.Subgender.SubGenderName)
+                </td>
+                <td style="vertical-align: middle;">
+                    <div style="display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
+                        @Html.DisplayFor(modelItem => item.Summary)
+                    </div>
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.AquisitionDate)
+                </td>
+                <td style="vertical-align: middle; text-align: center;">
+                    @Html.DisplayFor(modelItem => item.N_Copies)
+                </td>
+                <td style="vertical-align: middle; text-align: center">
+                    <a asp-action="Edit" asp-route-id="@item.ISBN" class="btn btn-primary" style="padding: 5px 5px; font-size: 15px; font-family: 'Segoe UI'; background-color: #001733; color: white; font-weight: bold; border-radius: 10px; width: 80px; height: 20px; border: 1px solid black; display: flex; justify-content: center; align-items: center; margin: 10px;">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.ISBN" class="btn btn-primary" style="padding: 5px 5px; font-size: 15px; font-family: 'Segoe UI'; background-color: #de0d1d; color: white; font-weight: bold; border-radius: 10px; width: 80px; height: 20px; border: 1px solid black; display: flex; justify-content: center; align-items: center; margin: 10px;">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>
